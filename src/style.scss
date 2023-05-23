@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    padding:0;
+    margin:0;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+.formContainer{
+    background-color: #f7f9fa;
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+    .logo{
+        color:#2f2f32;
+        font-weight: 500;
+        font-size:24px;
+    }
+    .title{
+        color:#68678a;
+        font-size:12px;
+    }
+    .formWrapper{
+        background-color: white;
+        padding:32px;
+        border-radius: 4px;
+        text-align: center;
+        box-shadow: 1px 1px 5px #e9e9f3;
+        min-width: 260px;
+        .option{
+            font-size: 12px;
+            color:#4d4dff;
+        }
+        form{
+            display:flex;
+            flex-direction: column;
+            gap:16px;
+            .pic{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                .custom-file-upload {
+                    display: inline-block;
+                    cursor: pointer;
+                    padding: 3px;
+                    background-color: #a9a9d6;
+                    border-radius: 4px;
+                    left:-108px;
+                    border-radius: 100%;
+                    width:100px;
+                    height:100px;
+                   
+                    img{
+                        border-radius: 100%;
+                    width:100px;
+                    height:100px;
+                    object-fit: cover; 
+                    }
+                  }
+                  .custom-file-upload::after {
+                   content: "[◉]";
+                   font-size: 5px;
+                   background-color: white;
+                   position:relative;
+                   top:-25px;
+                   left:30px;
+                   padding:8px;
+                   border-radius: 100%;
+                   box-shadow: 1px 1px 5px #e9e9f3;
+                   width:10px;
+                   height:10px;
+                  }
+                  .custom-file-upload:hover {
+                    background-color: #8686fc;
+                  }
+            }
+          .uploadFile{
+            background-color: #2f2f32;
+            width: 10px; 
+            display: none;
+            
+          }
+          input{
+            padding:4px;
+            border-radius: 4px;
+            border:1px solid #8686fc85;
+           
+          }
+          
+          input:focus{
+            outline: 1px solid #8686fc;
+          }
+          .checkbox{
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            .showPassword{
+                font-size: 10px;
+                font-weight: 100;
+            }
+          }
+
+          .error{
+            font-size: 10px;
+            color:red;
+            width:260px;
+          }
+          .button{
+            background-color: #4d4dff;
+            color:#ffff;
+            border:none;
+            padding:8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 300;
+         
+          }
+          .btnGoogle{
+            background-color: #fcfcfc;
+            color: #2f2f32;
+            border:none;
+            padding:8px;
+            border-radius: 4px;
+            box-shadow: 1px 1px 5px #e9e9f3;
+            font-weight: 300;
+            font-size: 10px;
+          }
+          .or{
+            font-size: 10px;
+            color:#68678acb
+
+          }
+          .or::after, .or::before{
+            content:"_____";
+          }
+        }
+    }
+}
+
+.input{
+    display:flex;
+    flex-direction: column;
+    text-align: left;
+    gap:6px;
+    font-size: 10px;
+    .label{
+        font-size:10px;
+        color:#2f2f32;
+    }   
+}
+input::placeholder {
+    font-size: 10px; 
+  }
+
