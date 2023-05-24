@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState,useContext,useEffect } from 'react';
 import Input from '../components/Input';
 import { createUserWithEmailAndPassword, updateProfile,signInWithPopup,GoogleAuthProvider } from 'firebase/auth';
 import { auth, db, storage,provider } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Register = () => {
   const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [image, setImage] = useState(
     'https://media.istockphoto.com/id/1288129985/vector/missing-image-of-a-person-placeholder.jpg?s=612x612&w=0&k=20&c=9kE777krx5mrFHsxx02v60ideRWvIgI1RWzR1X4MG2Y='
   );
+ 
+
   const navigate= useNavigate();
+
+  const { currentUser } = useContext(AuthContext);
+  
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/")
+      setTimeout(() => {
+        setIsLoading(false); // After the timeout, set isLoading to false
+      }, 1000); // Timeout duration in milliseconds (e.g., 2000 milliseconds = 2 seconds)
+    }
+    setIsLoading(false);
+   
+  }, [currentUser]);
+
+
 
   const handleGoogleSignUp = async (e)=>{
     try{
@@ -41,7 +59,7 @@ const Register = () => {
       
     }}
   const handleSubmit = async (e) => {
-    setLoading(true);
+    setIsLoading(true);
     e.preventDefault();
     const displayName = e.target[1].value;
     const email = e.target[2].value;
@@ -78,16 +96,20 @@ const Register = () => {
             navigate("/");
           } catch (error) {
             setErr(err);
-            setLoading(false);
+            setIsLoading(false);
           }
         });
       });
     } catch (error) {
       setErr(error.message);
-      setLoading(false);
+      setIsLoading(false);
     }
   };
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handleCheckboxChange = () => {
+    setShowPassword(!showPassword);
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -98,7 +120,10 @@ const Register = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>;}
+  else{
+    
   return (
     <div className="formContainer">
       <span className="logo">Kumusta</span>
@@ -113,9 +138,9 @@ const Register = () => {
           </div>
           <Input type="text" placeholder="full name" label="Display Name" />
           <Input type="email" placeholder="email" label="Email Address" />
-          <Input type="password" placeholder="password" label="Password" />
+          <Input type={!showPassword? 'password':'text'} placeholder="password" label="Password" />
           <div className="checkbox">
-            <input type="checkbox" name="Show Password" id="" />
+            <input type="checkbox" name="Show Password" id="" checked={showPassword} onChange={handleCheckboxChange} />
             <span className="showPassword">Show Password</span>
           </div>
           <span className='error'>{err}</span>
@@ -130,9 +155,9 @@ const Register = () => {
           </button>
         </form>
       </div>
-      <p style={{ fontSize: '12px' }}> You have an account? Login</p>
+      <p style={{ fontSize: '12px' }}> You have an account? <Link to="/login">Login</Link></p>
     </div>
   );
 };
-
+}
 export default Register;
