@@ -1,11 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate,Link } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import Sidebar from '../components/Sidebar';
+import Chat from '../components/Chat';
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const navigate= useNavigate();
 
+  const handleSignOut =async (e)=>{
+   const result = await signOut(auth).then(() => {
+      // Sign-out successful.
+      navigate("/login")
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
   useEffect(() => {
     if (currentUser) {
       setIsLoading(false);
@@ -17,19 +29,11 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <h2>Home</h2>
-      {currentUser ? (
-        <div>
-          <p>Display Name: {currentUser.displayName}</p>
-          <p>Email: {currentUser.email}</p>
-          <img src={currentUser.photoURL} alt="User" />
-        </div>
-      ) : (
-        <div>
-          <p>loading</p>
-        </div>
-      )}
+    <div className='home'>
+      <div className="container">
+      <Sidebar/>
+      <Chat/>
+      </div>
     </div>
   );
 };
