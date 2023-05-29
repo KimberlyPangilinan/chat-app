@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
+  const {currentUser}=useContext(AuthContext);
   return (
     <div className='navbar'>
       <span className="logo">Kapp</span>
       <div className="user">
-        <img src="https://linkfree.io/_next/image?url=https%3A%2F%2Fgithub.com%2FKimberlyPangilinan.png&w=256&q=75" alt="" />
-        <span>Kim</span>
+        <img src={currentUser.photoURL} alt="" />
+        <span>{currentUser.displayName}</span>
         
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Input from '../components/Input';
+import { doc, setDoc } from 'firebase/firestore';
 import {
   signInWithEmailAndPassword,
   updateProfile,
@@ -85,6 +86,17 @@ const handleSubmit = async (e) => {
       const user = userCredential.user;
       console.log(user.email);
       navigate('/');
+         // Create user on firestore
+         await setDoc(doc(db, 'users', user.uid), {
+          uid: user.uid,
+          displayName:user.displayName,
+          email:user.email,
+          photoURL:user.photoURL,
+        });
+
+        // Create empty user chats on firestore
+        await setDoc(doc(db, 'userChats', user.uid), {});
+    
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;

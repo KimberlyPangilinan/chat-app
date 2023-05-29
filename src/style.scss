@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300;1,400;1,500;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@mixin mobile {
+  @media screen and (max-width:480px) {
+    @content;
+  }
+}
 
+@mixin tablet {
+  @media screen and (max-width:768px) {
+    @content;
+  }
+}
+
+@mixin laptop{
+  @media screen and (max-width:1200px) {
+    @content
+  }
+}
 body{
     padding:0;
     margin:0;
@@ -166,7 +182,7 @@ input::placeholder {
   .container{
     border:1px solid #a9a9d6;
     border-radius: 8px;
-    width:72%;
+    width:88%;
     height: 88%;
     display:flex;
     flex-direction: row;
@@ -256,6 +272,7 @@ input::placeholder {
       flex:3;
       display: flex;
       flex-direction: column;
+      background-color: #e9e5f1;
       .inputbox{
         background-color: #ffff;
         color:gray;
@@ -290,7 +307,8 @@ input::placeholder {
   gap:16px;
   display: flex;
   flex-direction: column;
-  
+  height:calc(100% - 160px);
+  overflow-y: auto;
 }
 
 .message{
@@ -299,20 +317,70 @@ input::placeholder {
   .messageInfo{
     display: flex;
     flex-direction: column;
-    gap:12px;
+    gap:8px;
     img{
-      width: 24px;
-      height: 24px;
+      width: 32px;
+      height: 32px;
       border-radius: 100%;
     }
     span{
-      font-size: 14px;
+      font-size: 12px;
       color: gray;
     }
   }
   .messageContent{
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
     p{
       margin: 0;
+      padding:8px;
+      background-color: #ffff;
+      border-radius: 0px 8px 8px 8px;
+      max-width:max-content ;
+    }
+    img{
+      width:50%;
+    }
+  }
+  &.owner{
+    flex-direction: row-reverse;
+    .messageContent{
+      align-items: flex-end;
+       p{
+      background-color: #778cd1;
+      color:white;
+      border-radius: 8px 0px 8px 8px;
+    }
+    }
+   
+  }
+}
+.userChat{
+  display:flex;
+  gap:12px;
+  padding:10px;
+  color:#ddddf7;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #2f2d52;
+  }
+  img{
+    width:24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .userChatInfo{
+    display: flex;
+    flex-direction: column;
+    span{font-size: 12px;}
+    .prevMessage{
+      font-size: 12px;
+      color:gray;
     }
   }
 }
